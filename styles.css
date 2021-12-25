@@ -15,3 +15,8 @@
   border: 1px black solid;
   width: 150px;
 }
+
+.popup {
+  visibility: hidden;
+  z-index: 1;
+}
