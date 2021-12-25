@@ -1,0 +1,17 @@
+* {
+  box-sizing: border-box;
+}
+
+
+#library {
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 5px;
+  border: 1px black solid
+
+}
+
+.card {
+  border: 1px black solid;
+  width: 150px;
+}
