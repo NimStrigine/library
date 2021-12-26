@@ -37,7 +37,7 @@ myLibrary.push(book2);
 
 function removeChildren() {
   let booklist = document.querySelectorAll(".card");
-  console.log(booklist);
+  // console.log(booklist);
   for (let i = 0; i < booklist.length; i++) {
     booklist[i].remove();
   }
@@ -46,11 +46,27 @@ function removeChildren() {
 function refreshLibrary() {
   removeChildren();
   for (let book of myLibrary) {
-  const divBook = document.createElement("div");
-  divBook.className = "card";
-  divBook.innerText = book.info();
-  library.appendChild(divBook);
-}};
+    const divBook = document.createElement("div");
+    const removeBtn = document.createElement("button");
+    removeBtn.innerText = "Remove";
+    divBook.className = "card";
+    divBook.dataset.indexNumber = myLibrary.indexOf(book);
+    console.log(myLibrary.indexOf(book));
+    console.log(divBook);
+    divBook.innerText = book.info();
+    divBook.appendChild(removeBtn);
+    library.appendChild(divBook);
+    removeBtn.addEventListener("click", () => removeBook(removeBtn.parentNode));
+    // console.log(removeBtn.parentNode);
+  }
+};
+
+function removeBook(node) {
+  myLibrary.splice(node.dataset.indexNumber, 1);
+  node.parentNode.removeChild(node);
+  // console.log(myLibrary);
+  // console.log(library.children);
+}
 
 // bring up form for new book
 addBook.addEventListener("click", () => {
@@ -60,7 +76,7 @@ addBook.addEventListener("click", () => {
 //save book info
 save.addEventListener("click", (e) => {
   e.preventDefault();
-  const title = document.querySelector("#title").value;
+  let title = document.getElementByName("#title").value;
   const author = document.querySelector("#author").value;
   const pages = document.querySelector("#pages").value;
   const read = document.querySelector("#read").value;
@@ -68,4 +84,8 @@ save.addEventListener("click", (e) => {
   const newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
   refreshLibrary();
+  title.value = "";
+  author = "";
+  pages.value = "";
+  read.value = false;
 });
