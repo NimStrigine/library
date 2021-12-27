@@ -1,3 +1,5 @@
+/* to do: read indicator button */
+
 let myLibrary = [];
 const library = document.querySelector("#library");
 const addBook = document.querySelector("#add");
@@ -37,15 +39,16 @@ function removeChildren() {
 function refreshLibrary() {
   removeChildren();
   for (let book of myLibrary) {
-    const divBook = document.createElement("div");
-    const removeBtn = document.createElement("button");
-    removeBtn.innerText = "Remove";
-    divBook.className = "card";
-    divBook.setAttribute("id", myLibrary.indexOf(book));
-    divBook.innerText = book.info();
-    divBook.appendChild(removeBtn);
-    library.appendChild(divBook);
-    removeBtn.addEventListener("click", () => removeBook(removeBtn.parentNode));
+    // const divBook = document.createElement("div");
+    // const removeBtn = document.createElement("button");
+    // removeBtn.innerText = "Remove";
+    // divBook.className = "card";
+    // divBook.setAttribute("id", myLibrary.indexOf(book));
+    // divBook.innerText = book.info();
+    // divBook.appendChild(removeBtn);
+    // library.appendChild(createBook(book));
+    createBook(book);
+    // removeBtn.addEventListener("click", () => removeBook(removeBtn.parentNode));
   }
 };
 
@@ -54,9 +57,7 @@ function createBook(book) {
   const divBook = document.createElement("div");
   const removeBtn = document.createElement("button");
   const readBtn = document.createElement("div");
-  readBtn.setAttribute("height", 5);
-  readBtn.setAttribute("width", 5);
-  readBtn.id = "hasRead";
+  readBtn.className = "hasRead";
   readBtn.style.backgroundColor = (book.read) ? "green" : "red";
   removeBtn.innerText = "Remove";
   divBook.className = "card";
@@ -66,7 +67,7 @@ function createBook(book) {
   divBook.appendChild(removeBtn);
   library.appendChild(divBook);
   removeBtn.addEventListener("click", () => removeBook(removeBtn.parentNode));
-  readBtn.addEventListener("click", () => hasRead());
+  readBtn.addEventListener("click", () => book.hasRead());
 }
 
 // Remove single book

@@ -20,3 +20,9 @@
   visibility: hidden;
   z-index: 1;
 }
+
+.hasRead {
+  min-width: 10px;
+  min-height: 10px;
+
+}
