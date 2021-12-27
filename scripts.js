@@ -4,7 +4,7 @@ const addBook = document.querySelector("#add");
 const popup = document.querySelector(".popup");
 const save = document.querySelector("#save");
 
-// book constructor
+// Book constructor
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -25,7 +25,7 @@ Book.prototype.hasRead = function() {
   this.read = !this.read;
 }
 
-// clear DOM of books
+// Clear DOM of books
 function removeChildren() {
   let booklist = document.querySelectorAll(".card");
   for (let i = 0; i < booklist.length; i++) {
@@ -33,6 +33,7 @@ function removeChildren() {
   }
 }
 
+// Update DOM
 function refreshLibrary() {
   removeChildren();
   for (let book of myLibrary) {
@@ -48,18 +49,38 @@ function refreshLibrary() {
   }
 };
 
-// remove single book
+// Create book card
+function createBook(book) {
+  const divBook = document.createElement("div");
+  const removeBtn = document.createElement("button");
+  const readBtn = document.createElement("div");
+  readBtn.setAttribute("height", 5);
+  readBtn.setAttribute("width", 5);
+  readBtn.id = "hasRead";
+  readBtn.style.backgroundColor = (book.read) ? "green" : "red";
+  removeBtn.innerText = "Remove";
+  divBook.className = "card";
+  divBook.setAttribute("id", myLibrary.indexOf(book));
+  divBook.innerText = book.info();
+  divBook.appendChild(readBtn);
+  divBook.appendChild(removeBtn);
+  library.appendChild(divBook);
+  removeBtn.addEventListener("click", () => removeBook(removeBtn.parentNode));
+  readBtn.addEventListener("click", () => hasRead());
+}
+
+// Remove single book
 function removeBook(node) {
   myLibrary.splice(node.dataset.indexNumber, 1);
   node.parentNode.removeChild(node);
 }
 
-// bring up form for new book
+// Bring up form for new book
 addBook.addEventListener("click", () => {
   popup.style.visibility = "visible";
 });
 
-// save book info
+// Save book info
 save.addEventListener("click", (e) => {
   e.preventDefault();
   let title = document.querySelector("#title");
@@ -73,7 +94,7 @@ save.addEventListener("click", (e) => {
   clearForm();
 });
 
-// clear and rehide form
+// Clear and rehide form
 function clearForm() {
   let title = document.querySelector("#title");
   let author = document.querySelector("#author");
